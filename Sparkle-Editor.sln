@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sparkle.Editor", "src\Sparkle.Editor\Sparkle.Editor.csproj", "{87BEB2E1-59B5-4F33-8559-858B35514274}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87BEB2E1-59B5-4F33-8559-858B35514274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87BEB2E1-59B5-4F33-8559-858B35514274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87BEB2E1-59B5-4F33-8559-858B35514274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87BEB2E1-59B5-4F33-8559-858B35514274}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
