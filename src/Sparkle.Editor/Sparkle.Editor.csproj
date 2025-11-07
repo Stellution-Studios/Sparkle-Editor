@@ -5,6 +5,24 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="content\" />
+      <Folder Include="CSharp\" />
+    </ItemGroup>
+    
+    <!-- References -->
+    <ItemGroup>
+        <ProjectReference Include="..\Sparkle\src\Sparkle\Sparkle.csproj" />
+    </ItemGroup>
+    
+    <!-- Content -->
+    <ItemGroup>
+        <Content Include="content/**/*" Pack="true">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <PackageCopyToOutput>true</PackageCopyToOutput>
+        </Content>
+    </ItemGroup>
 </Project>

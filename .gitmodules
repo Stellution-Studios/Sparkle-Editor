@@ -1,0 +1,11 @@
+[submodule "src/port-to-bliss"]
+	path = src/port-to-bliss
+	url = https://github.com/MrScautHD/Sparkle
+[submodule "src/path/to/submodule"]
+	path = src/path/to/submodule
+	url = https://github.com/MrScautHD/Sparkle.git
+	branch = port-to-bliss
+[submodule "src/Sparkle"]
+	path = src/Sparkle
+	url = https://github.com/MrScautHD/Sparkle.git
+	branch = port-to-bliss
