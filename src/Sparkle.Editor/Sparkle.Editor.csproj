@@ -25,4 +25,7 @@
             <PackageCopyToOutput>true</PackageCopyToOutput>
         </Content>
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Twizzle.ImGui-Bundle.NET" Version="1.91.5.2" />
+    </ItemGroup>
 </Project>
