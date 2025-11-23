@@ -6,6 +6,7 @@ using Bliss.CSharp.Interact.Keyboards;
 using Bliss.CSharp.Interact.Mice;
 using Bliss.CSharp.Logging;
 using ImGuiNET;
+using ImGuizmoNET;
 using Sparkle.Editor.EditorRuntime;
 using Veldrid;
 
@@ -65,6 +66,7 @@ public class ImGuiController : IDisposable {
         SetupKeymap();
 
         ImGui.CreateContext();
+        ImGuizmo.SetImGuiContext(ImGui.GetCurrentContext());
         var io = ImGui.GetIO();
         io.BackendFlags |= ImGuiBackendFlags.RendererHasVtxOffset;
         io.ConfigFlags |= ImGuiConfigFlags.NavEnableKeyboard | ImGuiConfigFlags.DockingEnable;
@@ -72,6 +74,7 @@ public class ImGuiController : IDisposable {
 
         CreateDeviceResources(graphicsDevice, outputDescription);
         SetPerFrameImGuiData(1f / 60f);
+      
         ImGui.NewFrame();
         _frameBegun = true;
     }
@@ -257,6 +260,7 @@ public class ImGuiController : IDisposable {
 
         _frameBegun = true;
         ImGui.NewFrame();
+        ImGuizmo.BeginFrame();
     }
 
     /// <summary>
