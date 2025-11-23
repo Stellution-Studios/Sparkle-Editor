@@ -428,7 +428,7 @@ public class ImGuiController : IDisposable {
             if (Input.IsKeyReleased(key))
                 io.AddKeyEvent(imGuiKey, false);
 
-        if (!io.WantTextInput) {
+        if (Input.IsTextInputActive() && (!io.WantTextInput || !EditorInstance.Instance.Window.IsFocused)) {
             Input.DisableTextInput();
         }
     }
