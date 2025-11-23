@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Numerics;
 using System.Xml;
 using Assimp;
@@ -16,6 +17,7 @@ using Bliss.CSharp.Windowing.Events;
 using ImGuiNET;
 using MiniAudioEx;
 using Sparkle.CSharp;
+using Sparkle.Editor.CSharp.EditorRuntime.Utilities;
 using Veldrid;
 using Veldrid.OpenGL;
 
@@ -28,6 +30,7 @@ public class EditorInstance
     public GraphicsDevice GraphicsDevice;
     public CommandList CommandList;
     private ImmediateRenderer _renderer;
+    private ImGuiController _controller;
     public EditorInstance()
     {
         Setup();
@@ -84,7 +87,9 @@ public class EditorInstance
 
         _cam = new Cam3D(new Vector3(0,2,-4), new Vector3(0, 0, 0), (float)_window.GetWidth() / _window.GetHeight(),
             Vector3.UnitY, ProjectionType.Perspective, CameraMode.Orbital, 90, 0.1f, 10000.0f);
-        
+
+        _controller = new ImGuiController(GraphicsDevice, GraphicsDevice.SwapchainFramebuffer.OutputDescription,
+            _window.GetWidth(), _window.GetHeight());
         Logger.Info("Completed loading.");
 
     }
@@ -92,12 +97,18 @@ public class EditorInstance
     public void OnResize(Rectangle size)
     {
         GraphicsDevice.MainSwapchain.Resize((uint)size.Width, (uint)size.Height);
-        _cam.Resize((uint)_window.GetWidth(), (uint)_window.GetHeight());
+        _cam.Resize((uint)size.Width, (uint)size.Height);
+        _controller.Resize(size.Width, size.Height);
     }
+
+    private Stopwatch deltaTime = Stopwatch.StartNew();
     public void Run()
     {
         while (_window.Exists)
         {
+           
+            _controller.Update(1.0f/deltaTime.ElapsedTicks);;
+          
             _window.PumpEvents();
             Input.Begin();
 
@@ -108,7 +119,8 @@ public class EditorInstance
 
             Update();
             Draw(GraphicsDevice, CommandList);
-            Input.End();
+          
+            deltaTime.Restart();
         }
 
        
@@ -119,21 +131,25 @@ public class EditorInstance
 
     private void Update()
     {
-        _cam.Update((float)Time.Delta);
+        _cam.Update(1.0f/deltaTime.ElapsedTicks);
     }
 
     private void Draw(GraphicsDevice graphicsDevice, CommandList commandList)
     {
+        ImGui.Begin("TEST");
+        ImGui.Text("TEST");
+        ImGui.End();
+
         commandList.Begin();
         commandList.SetFramebuffer(graphicsDevice.SwapchainFramebuffer);
         commandList.ClearColorTarget(0, Color.LightBlue.ToRgbaFloat());
         commandList.ClearDepthStencil(1.0f);
         
-        _cam.Begin();
-        _renderer.DrawCubeWires(commandList, graphicsDevice.SwapchainFramebuffer.OutputDescription, new Transform() { Translation = new Vector3(0,0,-2) }, Vector3.One, Color.Blue);
-        _cam.End();
+        _controller.Render(graphicsDevice, commandList);
+       // _cam.Begin();
+        //_renderer.DrawCubeWires(commandList, graphicsDevice.SwapchainFramebuffer.OutputDescription, new Transform() { Translation = new Vector3(0,0,-2) }, Vector3.One, Color.Blue);
+       // _cam.End();
         commandList.End();
-        graphicsDevice.WaitForIdle();
         graphicsDevice.SubmitCommands(commandList);
         graphicsDevice.SwapBuffers();
     }

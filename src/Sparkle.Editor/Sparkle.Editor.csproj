@@ -7,11 +7,6 @@
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="content\" />
-      <Folder Include="CSharp\" />
-    </ItemGroup>
     
     <!-- References -->
     <ItemGroup>
